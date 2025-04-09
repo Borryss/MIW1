@@ -32,6 +32,8 @@ COLUMNS = generate_columns(array)
 COLUMNS2 = COLUMNS[:-1].copy()
 classes_array = []
 classes_arrays = []
+array_of_groups = []
+temp_array1 = [[],[], []]
 
 df = pd.DataFrame(string_array, columns=COLUMNS)
 
@@ -41,7 +43,7 @@ for i in array:
     value = i[len(array[0]) - 1]
     classes_array.append(int(value))
 
-print(classes_array)
+
 
 # stwozenie podzielonej na grupy listy z klasami
 for i in classes_array:
@@ -61,12 +63,44 @@ for i in classes_array:
             classes_arrays.append([i])
             continue
 
-print(classes_arrays)
 
 
-# for k in range(len(classes_arrays)-1):
-#     # print(classes_arrays[k])
-#     for u in range(len(df)):
-#         if int(df[COLUMNS[len(COLUMNS2)]].iloc[u]) in classes_arrays[k]:
+# stwozenie listy z listami list (array x3) , zeby rozdzielic na clasy kazdy rzed
+for k in range(len(classes_arrays)):
+    # print(classes_arrays[k])
+    first = True
+    for u in range(len(df)):
+        if int(df[COLUMNS[len(COLUMNS2)]].iloc[u]) in classes_arrays[k]:
+            if first:
+                array_of_groups.append([array[u].tolist()])
+                first = False
+            else:
+                array_of_groups[k].append(array[u].tolist())
+
+
+print(array_of_groups)
+
+for a in range(len(array_of_groups)):
+    do_once = True
+    # print(array_of_groups[a])
+
+    for i in range(len(array_of_groups[a])):
+        # print(array_of_groups[a][i])
+        """DOROBY MECHANIZM STWOZENIA DOdATKOWYCH POL DLA TEMP_ARRAY"""
+        # if do_once:
+        #     for h in range(len(array_of_groups[a]) - 1):
+        #         print(f"for ")
+        #         print(f"h is : {h}")
+        #         temp_array1.append([])
+        #         do_once = False
+        for j in range(len(array_of_groups[a][i])):
+            temp_array1.append([])
+            temp_array1[j].append(array_of_groups[a][i][j])
+
+
+print(temp_array1)
+
+
+
 
 
